@@ -77,8 +77,8 @@ iface eth0 inet static
 	gateway 10.9.2.1
 ```
 
-Luffy ingin menghubungi Franky yang berada di EniesLobby dengan denden mushi. Kalian diminta Luffy untuk membuat website utama dengan mengakses franky.yyy.com dengan alias www.franky.yyy.com pada folder kaizoku.
-Setelah itu buat subdomain super.franky.yyy.com dengan alias www.super.franky.yyy.com yang diatur DNS nya di EniesLobby dan mengarah ke Skypie
+Luffy ingin menghubungi Franky yang berada di EniesLobby dengan denden mushi. Kalian diminta Luffy untuk membuat website utama dengan mengakses franky.B04.com dengan alias www.franky.B04.com pada folder kaizoku.
+Setelah itu buat subdomain super.franky.B04.com dengan alias www.super.franky.B04.com yang diatur DNS nya di EniesLobby dan mengarah ke Skypie
 Buat juga reverse domain untuk domain utama
 
 ## Konfigurasi DNS
@@ -148,7 +148,7 @@ ns1     IN      A       10.9.2.3
 mecha   IN      NS      ns1
 ```
 Supaya tetap bisa menghubungi Franky jika server EniesLobby rusak, maka buat Water7 sebagai DNS Slave untuk domain utama
-Setelah itu terdapat subdomain mecha.franky.yyy.com dengan alias www.mecha.franky.yyy.com yang didelegasikan dari EniesLobby ke Water7 dengan IP menuju ke Skypie dalam folder sunnygo. Untuk memperlancar komunikasi Luffy dan rekannya, dibuatkan subdomain melalui Water7 dengan nama general.mecha.franky.yyy.com dengan alias www.general.mecha.franky.yyy.com yang mengarah ke Skypie
+Setelah itu terdapat subdomain mecha.franky.B04.com dengan alias www.mecha.franky.B04.com yang didelegasikan dari EniesLobby ke Water7 dengan IP menuju ke Skypie dalam folder sunnygo. Untuk memperlancar komunikasi Luffy dan rekannya, dibuatkan subdomain melalui Water7 dengan nama general.mecha.franky.B04.com dengan alias www.general.mecha.franky.B04.com yang mengarah ke Skypie
 
 ### Konfigurasi DNS Slave di Water7
 
