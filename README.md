@@ -1,5 +1,7 @@
 # Jarkom-Modul-2-B04-2021
 
+![image](https://user-images.githubusercontent.com/40772378/139529351-c5f3d141-c0a4-4d78-8bdd-1b2f3cb80313.png)
+
 Konfigurasi network Foosha
 ```
 # DHCP config for eth0
@@ -248,3 +250,6 @@ Auth basic luffy di Skypie, `/etc/apache2/.htpasswd`
 ```
 luffy:$apr1$oWUMSnpM$aD.xymZufijsyuMFlpxo10
 ```
+
+Kendala:
+1. Lupa bahwa saat ada penggunaan rewrite di apache2, harus disertakan `RewriteEngine on` sebelumnya. Ini cukup menguras waktu karena sekilas config terlihat benar urutan dan syaratnya, namun karena tidak yakin maka config yang justru diubah2 dan didebug, bukan penulisan `RewriteEngine on`-nya.
