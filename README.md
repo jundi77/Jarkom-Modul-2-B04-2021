@@ -1,5 +1,12 @@
 # Jarkom-Modul-2-B04-2021
 
+Naufal Fajar Imani             05111940000007
+
+Jundullah H. R.                05111940000144
+
+Yeremia D Limantara            05111940000232
+
+------------------------------------------------------------------------------
 ![image](https://user-images.githubusercontent.com/40772378/139529351-c5f3d141-c0a4-4d78-8bdd-1b2f3cb80313.png)
 
 Diinginkan struktur node-node pada gambar di atas, dengan syarat setiap node dapat terhubung dengan internet. Oleh karenanya dibuat node-node yang kemudian diberi nama Foosha, Loguetown, Alabasta, EniesLobby, Water7, dan Skypie. Setiap node diberikan konfigurasi network seperti berikut pada GNS3 sehingga dapat terkoneksi ke internet melalui node Foosha.
