@@ -267,7 +267,12 @@ ServerName franky.B04.com
   </Directory>
 </VirtualHost>
 ```
-- Test penjelasan
+
+### VirtualHost dengan ServerName IP Skypie
+### VirtualHost dengan ServerName franky.B04.com
+### VirtualHost dengan ServerName super.franky.B04.com
+### VirtualHost dengan ServerName general.mecha.franky.B04.com
+
 
 ## Kendala
 1. Lupa bahwa saat ada penggunaan rewrite di apache2, harus disertakan `RewriteEngine on` sebelumnya. Ini cukup menguras waktu karena sekilas config terlihat benar urutan dan syaratnya, namun karena tidak yakin maka config yang justru diubah2 dan didebug, bukan penulisan `RewriteEngine on`-nya.
