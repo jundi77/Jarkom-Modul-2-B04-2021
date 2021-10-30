@@ -176,3 +176,75 @@ iface eth0 inet static
 	netmask 255.255.255.0
 	gateway 10.9.2.1
 ```
+
+Konfigurasi apache2 di Skypie, `/etc/apache2/sites-enabled/000-default.conf`
+```
+ServerName franky.B04.com
+
+<VirtualHost *:80>
+    ServerName  10.9.2.4
+    Redirect    301 /   http://www.franky.B04.com
+</VirtualHost>
+
+
+<VirtualHost *:80>
+    ServerName franky.B04.com
+    ServerAlias www.franky.B04.com
+    ServerAdmin webmaster@localhost
+    DocumentRoot /var/www/franky.B04.com
+    ErrorLog ${APACHE_LOG_DIR}/error.log
+    CustomLog ${APACHE_LOG_DIR}/access.log combined
+
+    <Directory /var/www/franky.B04.com>
+        RewriteEngine on
+        RewriteCond %{REQUEST_FILENAME} !-f
+        RewriteCond %{REQUEST_FILENAME} !-d
+        RewriteRule (.*) /index.php/$1 [L]
+    </Directory>
+</VirtualHost>
+
+<VirtualHost *:80>
+    ServerName super.franky.B04.com
+    ServerAlias www.super.franky.B04.com
+    ServerAdmin webmaster@localhost
+    DocumentRoot /var/www/super.franky.B04.com
+    ErrorDocument 404 /error/404.html
+    ErrorLog ${APACHE_LOG_DIR}/error.log
+    CustomLog ${APACHE_LOG_DIR}/access.log combined
+
+    Alias "/js" "/var/www/super.franky.B04.com/public/js"
+
+    <Directory /var/www/super.franky.B04.com/public/images>
+        Options +Indexes
+
+        RewriteEngine on
+        RewriteCond %{REQUEST_FILENAME} !-d
+        RewriteRule (.*)(franky)+(.*) franky.png [L]
+    </Directory>
+
+    <Directory /var/www/super.franky.B04.com/public>
+        Options +Indexes
+    </Directory>
+</VirtualHost>
+
+<VirtualHost *:15000 *:15500>
+    ServerName general.mecha.franky.B04.com
+    ServerAlias www.general.mecha.franky.B04.com
+    ServerAdmin webmaster@localhost
+    DocumentRoot /var/www/general.mecha.franky.B04
+    ErrorLog ${APACHE_LOG_DIR}/error.log
+    CustomLog ${APACHE_LOG_DIR}/access.log combined
+
+    <Directory "/var/www/general.mecha.franky.B04">
+        AuthType Basic
+        AuthName "Restricted Content"
+        AuthUserFile /etc/apache2/.htpasswd
+        Require valid-user
+  </Directory>
+</VirtualHost>
+```
+
+Auth basic luffy di Skypie, `/etc/apache2/.htpasswd`
+```
+luffy:$apr1$oWUMSnpM$aD.xymZufijsyuMFlpxo10
+```
