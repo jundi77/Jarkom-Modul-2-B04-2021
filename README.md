@@ -127,6 +127,47 @@ iface eth0 inet static
 	gateway 10.9.2.1
 ```
 
+`/etc/bind/named.conf.local` Water7
+```
+//
+// Do any local configuration here
+//
+
+// Consider adding the 1918 zones here, if they are not used in your
+// organization
+//include "/etc/bind/zones.rfc1918";
+zone "franky.B04.com" {
+    type slave;
+    masters { 10.9.2.2; }; // Masukan IP EniesLobby tanpa tanda petik
+    file "/var/lib/bind/franky.B04.com";
+};
+
+zone "mecha.franky.B04.com" {
+    type master;
+    file "/etc/bind/sunnygo/mecha.franky.B04.com";
+};
+```
+
+`/etc/bind/sunnygo/mecha.franky.B04.com` Water7
+```
+;
+; BIND data file for local loopback interface
+;
+$TTL    604800
+@       IN      SOA     mecha.franky.B04.com. root.mecha.franky.B04.com. (
+                     2021102510         ; Serial
+                         604800         ; Refresh
+                          86400         ; Retry
+                        2419200         ; Expire
+                         604800 )       ; Negative Cache TTL
+;
+@       IN      NS      mecha.franky.B04.com.
+@       IN      A       10.9.2.4
+www     IN      CNAME   mecha.franky.B04.com.
+general       IN      A       10.9.2.4
+www.general     IN      CNAME   general.mecha.franky.B04.com.
+```
+
 Konfigurasi network Skypie
 ```
 auto eth0
