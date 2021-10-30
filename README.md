@@ -273,6 +273,15 @@ ServerName franky.B04.com
 ### VirtualHost dengan ServerName super.franky.B04.com
 ### VirtualHost dengan ServerName general.mecha.franky.B04.com
 
+Isinya langsung melakukan redirect ke www.franky.B04.com, sesuai permintaan soal nomor 16.
+
+Isinya mengarah ke directory `/var/www/franky.B04.com`, sesuai permintaan soal nomor 8. Kemudian supaya akses menuju `/home` diarahkan secara internal ke `/index.php/home`, dilakukan rewrite dengan menggunakan modul apache rewrite untuk direktori `/var/www/franky.B04.com`. Dengan config rewrite yang diberikan, seluruh akses ke `/var/www/franky.B04.com` yang file/direktorinya tidak ada di sana, akan diarahkan ke index.php
+
+
+Isinya mengarah ke directory `/var/www/super.franky.B04.com`. Terdapat alias untuk route `/js` agar diarahkan ke `/var/www/super.franky.B04.com/public/js` secara internal. Kemudian untuk direktori `/var/www/super.franky.B04.com/public` diberikan config `Options +Indexes` sehingga dapat dilakukan listing direktori. Untuk `/var/www/super.franky.B04.com/public/images`, ditambahkan config rewrite sehingga segala request yang mengarah ke file dengan substring `franky`, akan diarahkan secara internal ke `franky.png`. Untuk penggantian halaman default 404 dilakukan dengan `ErrorDocument 404 /error/404.html`.
+
+
+Isinya mengarah ke `/var/www/general.mecha.franky.B04`, dengan akses dibatasi untuk port 15000 dan 15500 saja. Di sini dilakukan konfigurasi auth basic dengan file `.htpasswd` diletakkan di `/etc/apache2/.htpasswd`, sehingga setiap akses ke sini perlu login dengan user luffy terlebih dahulu.
 
 ## Kendala
 1. Lupa bahwa saat ada penggunaan rewrite di apache2, harus disertakan `RewriteEngine on` sebelumnya. Ini cukup menguras waktu karena sekilas config terlihat benar urutan dan syaratnya, namun karena tidak yakin maka config yang justru diubah2 dan didebug, bukan penulisan `RewriteEngine on`-nya.
