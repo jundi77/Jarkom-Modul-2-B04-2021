@@ -2,7 +2,10 @@
 
 ![image](https://user-images.githubusercontent.com/40772378/139529351-c5f3d141-c0a4-4d78-8bdd-1b2f3cb80313.png)
 
-Konfigurasi network Foosha
+Diinginkan struktur node-node pada gambar di atas, dengan syarat setiap node dapat terhubung dengan internet. Oleh karenanya dibuat node-node yang kemudian diberi nama Foosha, Loguetown, Alabasta, EniesLobby, Water7, dan Skypie. Setiap node diberikan konfigurasi network seperti berikut pada GNS3 sehingga dapat terkoneksi ke internet melalui node Foosha.
+
+## Konfigurasi Network pada Foosha
+
 ```
 # DHCP config for eth0
 auto eth0
@@ -22,15 +25,14 @@ iface eth2 inet static
 
 ```
 
-Setting NAT di Foosha, melalui `.bashrc`
+Adapun kemudian memerlukan setting NAT di Foosha, dilakukan melalui `.bashrc`
 ```
 # NAT settings
 echo Applying NAT settings
 iptables -t nat -A POSTROUTING -o eth0 -j MASQUERADE -s 10.9.0.0/16
 ```
 
-
-Konfigurasi network Loguetown
+## Konfigurasi network Loguetown
 ```
 auto eth0
 iface eth0 inet static
@@ -39,7 +41,7 @@ iface eth0 inet static
 	gateway 10.9.1.1
 ```
 
-Konfigurasi network Alabasta
+## Konfigurasi network Alabasta
 ```
 auto eth0
 iface eth0 inet static
@@ -48,21 +50,39 @@ iface eth0 inet static
 	gateway 10.9.1.1
 ```
 
-Menambahkan DNS master dan slave di Loguetown dan Alabasta
-```
-# Nameserver Config
-echo nameserver 10.9.2.2 > /etc/resolv.conf # EniesLobby
-echo nameserver 10.9.2.3 >> /etc/resolv.conf # Water7
-echo nameserver 192.168.122.1 >> /etc/resolv.conf
-```
-
-Konfigurasi network EniesLobby
+## Konfigurasi network EniesLobby
 ```
 auto eth0
 iface eth0 inet static
 	address 10.9.2.2
 	netmask 255.255.255.0
 	gateway 10.9.2.1
+```
+
+## Konfigurasi network Water7
+```
+auto eth0
+iface eth0 inet static
+	address 10.9.2.3
+	netmask 255.255.255.0
+	gateway 10.9.2.1
+```
+
+## Konfigurasi network Skypie
+```
+auto eth0
+iface eth0 inet static
+	address 10.9.2.4
+	netmask 255.255.255.0
+	gateway 10.9.2.1
+```
+
+Menambahkan DNS master dan slave di Loguetown dan Alabasta
+```
+# Nameserver Config
+echo nameserver 10.9.2.2 > /etc/resolv.conf # EniesLobby
+echo nameserver 10.9.2.3 >> /etc/resolv.conf # Water7
+echo nameserver 192.168.122.1 >> /etc/resolv.conf
 ```
 
 `/etc/bind/named.conf.local` EniesLobby
@@ -120,15 +140,6 @@ ns1     IN      A       10.9.2.3
 mecha   IN      NS      ns1
 ```
 
-Konfigurasi network Water7
-```
-auto eth0
-iface eth0 inet static
-	address 10.9.2.3
-	netmask 255.255.255.0
-	gateway 10.9.2.1
-```
-
 `/etc/bind/named.conf.local` Water7
 ```
 //
@@ -168,15 +179,6 @@ $TTL    604800
 www     IN      CNAME   mecha.franky.B04.com.
 general       IN      A       10.9.2.4
 www.general     IN      CNAME   general.mecha.franky.B04.com.
-```
-
-Konfigurasi network Skypie
-```
-auto eth0
-iface eth0 inet static
-	address 10.9.2.4
-	netmask 255.255.255.0
-	gateway 10.9.2.1
 ```
 
 Konfigurasi apache2 di Skypie, `/etc/apache2/sites-enabled/000-default.conf`
