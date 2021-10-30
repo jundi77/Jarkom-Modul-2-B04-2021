@@ -273,6 +273,7 @@ ServerName franky.B04.com
   </Directory>
 </VirtualHost>
 ```
+ServerName menyesuaikan domain di DNS, dan untuk domain alias maka diletakkan konfigurasinya di ServerAlias.
 
 ### VirtualHost dengan ServerName IP Skypie
 Isinya langsung melakukan redirect ke www.franky.B04.com, sehingga setiap akses ke IP Skypie langsung diarahkan ke www.franky.B04.com.
