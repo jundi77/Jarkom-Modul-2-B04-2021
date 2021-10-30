@@ -77,6 +77,8 @@ iface eth0 inet static
 	gateway 10.9.2.1
 ```
 
+## Konfigurasi DNS
+
 Menambahkan DNS master dan slave di Loguetown dan Alabasta
 ```
 # Nameserver Config
@@ -181,6 +183,13 @@ general       IN      A       10.9.2.4
 www.general     IN      CNAME   general.mecha.franky.B04.com.
 ```
 
+### Konfigurasi DNS Master di EniesLobby
+
+### Konfigurasi DNS Slave di Water7
+
+## Konfigurasi Webserver di Skypie
+
+
 Konfigurasi apache2 di Skypie, `/etc/apache2/sites-enabled/000-default.conf`
 ```
 ServerName franky.B04.com
@@ -253,5 +262,5 @@ Auth basic luffy di Skypie, `/etc/apache2/.htpasswd`
 luffy:$apr1$oWUMSnpM$aD.xymZufijsyuMFlpxo10
 ```
 
-Kendala:
+## Kendala
 1. Lupa bahwa saat ada penggunaan rewrite di apache2, harus disertakan `RewriteEngine on` sebelumnya. Ini cukup menguras waktu karena sekilas config terlihat benar urutan dan syaratnya, namun karena tidak yakin maka config yang justru diubah2 dan didebug, bukan penulisan `RewriteEngine on`-nya.
