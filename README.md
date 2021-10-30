@@ -20,6 +20,14 @@ iface eth2 inet static
 
 ```
 
+Setting NAT di Foosha, melalui `.bashrc`
+```
+# NAT settings
+echo Applying NAT settings
+iptables -t nat -A POSTROUTING -o eth0 -j MASQUERADE -s 10.9.0.0/16
+```
+
+
 Konfigurasi network Loguetown
 ```
 auto eth0
