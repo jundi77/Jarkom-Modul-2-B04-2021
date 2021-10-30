@@ -46,6 +46,14 @@ iface eth0 inet static
 	gateway 10.9.1.1
 ```
 
+Menambahkan DNS master dan slave di Loguetown dan Alabasta
+```
+# Nameserver Config
+echo nameserver 10.9.2.2 > /etc/resolv.conf # EniesLobby
+echo nameserver 10.9.2.3 >> /etc/resolv.conf # Water7
+echo nameserver 192.168.122.1 >> /etc/resolv.conf
+```
+
 Konfigurasi network EniesLobby
 ```
 auto eth0
