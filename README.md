@@ -63,6 +63,61 @@ iface eth0 inet static
 	gateway 10.9.2.1
 ```
 
+`/etc/bind/named.conf.local` EniesLobby
+```
+zone "franky.B04.com" {
+        type master;
+        notify yes;
+        also-notify { 10.9.2.3; };
+        allow-transfer { 10.9.2.3; };
+        file "/etc/bind/kaizoku/franky.B04.com";
+};
+
+zone "2.9.10.in-addr.arpa" {
+    type master;
+    file "/etc/bind/kaizoku/2.9.10.in-addr.arpa";
+};
+```
+`/etc/bind/kaizoku/2.9.10.in-addr.arpa` EniesLobby
+```
+;
+; BIND data file for local loopback interface
+;
+$TTL    604800
+@       IN      SOA     localhost. root.localhost. (
+                     2021100401         ; Serial
+                         604800         ; Refresh
+                          86400         ; Retry
+                        2419200         ; Expire
+                         604800 )       ; Negative Cache TTL
+;
+2.9.10.in-addr.arpa.    IN      NS      franky.B04.com.
+4       IN      PTR     franky.B04.com.
+;@      IN      AAAA    ::1
+```
+
+`/etc/bind/kaizoku/franky.B04.com` EniesLobby
+```
+;
+; BIND data file for local loopback interface
+;
+$TTL    604800
+@       IN      SOA     franky.B04.com. root.franky.B04.com. (
+                     2021100401         ; Serial
+                         604800         ; Refresh
+                          86400         ; Retry
+                        2419200         ; Expire
+                         604800 )       ; Negative Cache TTL
+;
+@       IN      NS      franky.B04.com.
+@       IN      A       10.9.2.4        ; IP Skypie
+www       IN      CNAME      franky.B04.com.
+super       IN      A       10.9.2.4        ; IP Skypie
+www.super       IN      CNAME      super.franky.B04.com.
+ns1     IN      A       10.9.2.3
+mecha   IN      NS      ns1
+```
+
 Konfigurasi network Water7
 ```
 auto eth0
