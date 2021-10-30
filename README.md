@@ -87,6 +87,8 @@ echo nameserver 10.9.2.3 >> /etc/resolv.conf # Water7
 echo nameserver 192.168.122.1 >> /etc/resolv.conf
 ```
 
+### Konfigurasi DNS Master di EniesLobby
+
 `/etc/bind/named.conf.local` EniesLobby
 ```
 zone "franky.B04.com" {
@@ -142,6 +144,8 @@ ns1     IN      A       10.9.2.3
 mecha   IN      NS      ns1
 ```
 
+### Konfigurasi DNS Slave di Water7
+
 `/etc/bind/named.conf.local` Water7
 ```
 //
@@ -182,10 +186,6 @@ www     IN      CNAME   mecha.franky.B04.com.
 general       IN      A       10.9.2.4
 www.general     IN      CNAME   general.mecha.franky.B04.com.
 ```
-
-### Konfigurasi DNS Master di EniesLobby
-
-### Konfigurasi DNS Slave di Water7
 
 ## Konfigurasi Webserver di Skypie
 
