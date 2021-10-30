@@ -189,8 +189,19 @@ www.general     IN      CNAME   general.mecha.franky.B04.com.
 
 ## Konfigurasi Webserver di Skypie
 
+Setelah mengunduh requirement pada [link berikut](https://github.com/FeinardSlim/Praktikum-Modul-2-Jarkom), dilakukan `unzip` dan rename untuk tiap-tiap folder:
+- franky -> franky.B04.com
+- general.mecha.franky -> general.mecha.franky.B04
+- super.franky -> super.franky.B04.com
 
-Konfigurasi apache2 di Skypie, `/etc/apache2/sites-enabled/000-default.conf`
+Kemudian untuk tiap-tiap folder requirement dipindahkan ke `/var/www`.
+
+Untuk auth basic luffy yang dijelaskan di nomor 15, dibuat sesuai tutorial modul dan diletakkan di `/etc/apache2/.htpasswd`, dengan isi:
+```
+luffy:$apr1$oWUMSnpM$aD.xymZufijsyuMFlpxo10
+```
+
+Selanjutnya adalah membuat konfigurasi apache2 di Skypie, adapun filenya `/etc/apache2/sites-enabled/000-default.conf` dengan isi seperti berikut:
 ```
 ServerName franky.B04.com
 
@@ -256,11 +267,7 @@ ServerName franky.B04.com
   </Directory>
 </VirtualHost>
 ```
-
-Auth basic luffy di Skypie, `/etc/apache2/.htpasswd`
-```
-luffy:$apr1$oWUMSnpM$aD.xymZufijsyuMFlpxo10
-```
+- Test penjelasan
 
 ## Kendala
 1. Lupa bahwa saat ada penggunaan rewrite di apache2, harus disertakan `RewriteEngine on` sebelumnya. Ini cukup menguras waktu karena sekilas config terlihat benar urutan dan syaratnya, namun karena tidak yakin maka config yang justru diubah2 dan didebug, bukan penulisan `RewriteEngine on`-nya.
