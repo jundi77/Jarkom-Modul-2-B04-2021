@@ -195,8 +195,19 @@ www.general     IN      CNAME   general.mecha.franky.B04.com.
 
 ## Konfigurasi Webserver di Skypie
 
+Setelah mengunduh requirement pada [link berikut](https://github.com/FeinardSlim/Praktikum-Modul-2-Jarkom), dilakukan `unzip` dan rename untuk tiap-tiap folder:
+- franky -> franky.B04.com
+- general.mecha.franky -> general.mecha.franky.B04
+- super.franky -> super.franky.B04.com
 
-Konfigurasi apache2 di Skypie, `/etc/apache2/sites-enabled/000-default.conf`
+Kemudian untuk tiap-tiap folder requirement dipindahkan ke `/var/www`.
+
+Untuk auth basic luffy yang dijelaskan di nomor 15, dibuat sesuai tutorial modul dan diletakkan di `/etc/apache2/.htpasswd`, dengan isi:
+```
+luffy:$apr1$oWUMSnpM$aD.xymZufijsyuMFlpxo10
+```
+
+Selanjutnya adalah membuat konfigurasi apache2 di Skypie, adapun filenya `/etc/apache2/sites-enabled/000-default.conf` dengan isi seperti berikut:
 ```
 ServerName franky.B04.com
 
@@ -263,10 +274,17 @@ ServerName franky.B04.com
 </VirtualHost>
 ```
 
-Auth basic luffy di Skypie, `/etc/apache2/.htpasswd`
-```
-luffy:$apr1$oWUMSnpM$aD.xymZufijsyuMFlpxo10
-```
+### VirtualHost dengan ServerName IP Skypie
+Isinya langsung melakukan redirect ke www.franky.B04.com, sehingga setiap akses ke IP Skypie langsung diarahkan ke www.franky.B04.com.
+
+### VirtualHost dengan ServerName franky.B04.com
+Isinya mengarah ke directory `/var/www/franky.B04.com`. Kemudian supaya akses menuju `/home` diarahkan secara internal ke `/index.php/home`, dilakukan rewrite dengan menggunakan modul apache rewrite untuk direktori `/var/www/franky.B04.com`. Dengan config rewrite yang diberikan, seluruh akses ke `/var/www/franky.B04.com` yang file/direktorinya tidak ada di sana, akan diarahkan ke index.php.
+
+### VirtualHost dengan ServerName super.franky.B04.com
+Isinya mengarah ke directory `/var/www/super.franky.B04.com`. Terdapat alias untuk route `/js` agar diarahkan ke `/var/www/super.franky.B04.com/public/js` secara internal. Kemudian untuk direktori `/var/www/super.franky.B04.com/public` diberikan config `Options +Indexes` sehingga dapat dilakukan listing direktori. Untuk `/var/www/super.franky.B04.com/public/images`, ditambahkan config rewrite sehingga segala request yang mengarah ke file dengan substring `franky`, akan diarahkan secara internal ke `franky.png`. Untuk penggantian halaman default 404 dilakukan dengan `ErrorDocument 404 /error/404.html`.
+
+### VirtualHost dengan ServerName general.mecha.franky.B04.com
+Isinya mengarah ke `/var/www/general.mecha.franky.B04`, dengan akses dibatasi untuk port 15000 dan 15500 saja. Di sini dilakukan konfigurasi auth basic dengan file `.htpasswd` diletakkan di `/etc/apache2/.htpasswd`, sehingga setiap akses ke sini perlu login dengan user luffy terlebih dahulu.
 
 ## Kendala
 1. Lupa bahwa saat ada penggunaan rewrite di apache2, harus disertakan `RewriteEngine on` sebelumnya. Ini cukup menguras waktu karena sekilas config terlihat benar urutan dan syaratnya, namun karena tidak yakin maka config yang justru diubah2 dan didebug, bukan penulisan `RewriteEngine on`-nya.
